@@ -1,5 +1,7 @@
 open Classical
 
+-- Section 2.1 The Peano axioms
+
 -- Axiom 2.1. 0 is a natural number.
 -- Axiom 2.2. If n is a natural number, then n++ is also a natural number.
 inductive nat : Type | zero : nat | succ : nat → nat
@@ -40,5 +42,38 @@ theorem six_not_two : six ≠ two :=
     have h2 : succ four ≠ succ zero := succ_inj four zero h1
     have h3 : succ (succ four) ≠ succ (succ zero) := succ_inj (succ four) (succ zero) h2 
     show six ≠ two from h3
+
+-- Axiom 2.5 (Principle of mathematical induction). Let 
+-- P(n) be any property pertaining to a natural number n. 
+-- Suppose that P(0) is true, and suppose that whenever 
+-- P(n) is true, P(n++) is also true. Then P(n) is true 
+-- for every natural number n.
+axiom induction : ∀ P : nat → Prop, P zero → (∀ n : nat, P n → P (succ n)) → ∀ n : nat, P n
+
+-- Remark: It appears Axiom 2.5 is unneded for Lean.
+
+-- Section 2.2 Addition
+def add : nat → nat → nat
+| zero, m => m
+| succ n, m => succ (add n m)
+
+-- Get to use the plus operator
+instance : Add nat where add := add
+
+-- Lemma 2.2.2. For any natural number n, n + 0 = n.
+theorem add_zero (n : nat) : add n zero = n := by
+  induction n with
+  | zero => rfl
+  | succ n ih => rw [add, ih]
+
+-- Lemma 2.2.3. For any natural numbers n and m, 
+-- n + (m++) = (n + m)++.
+theorem add_succ (n m : nat) : n + (succ m) = succ (n + m) := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    have h1 : succ n + succ m = succ (n + succ m) := rfl
+    repeat rw [h1, ih]
+    rfl
 
 end nat
