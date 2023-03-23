@@ -76,4 +76,20 @@ theorem add_succ (n m : nat) : n + (succ m) = succ (n + m) := by
     repeat rw [h1, ih]
     rfl
 
+-- Proposition 2.2.4 (Addition is commutative). For any natural 
+-- numbers n and m, n + m = m + n.
+theorem add_comm (n m : nat) : n + m = m + n := by
+  induction n with
+  | zero => 
+      have h1 : zero + m = m := by rfl
+      have h2 : m + zero = m := by apply add_zero
+      rw [h1, h2]
+  | succ n ih =>
+    have h1 : succ n + m = succ (n + m) := by rfl
+    have h2 : m + succ n = succ (m + n) := by apply add_succ
+    rw [h1, ih, h2]
+
+
+
+
 end nat
