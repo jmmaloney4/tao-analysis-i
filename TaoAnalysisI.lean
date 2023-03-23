@@ -85,11 +85,21 @@ theorem add_comm (n m : nat) : n + m = m + n := by
       have h2 : m + zero = m := by apply add_zero
       rw [h1, h2]
   | succ n ih =>
-    have h1 : succ n + m = succ (n + m) := by rfl
-    have h2 : m + succ n = succ (m + n) := by apply add_succ
-    rw [h1, ih, h2]
+      have h1 : succ n + m = succ (n + m) := by rfl
+      have h2 : m + succ n = succ (m + n) := by apply add_succ
+      rw [h1, ih, h2]
 
-
-
+-- Proposition 2.2.5 (Addition is associative). For any natural 
+-- numbers a,b,c, we have (a+b)+c=a+(b+c).
+theorem add_assoc (a b c : nat) : (a + b) + c = a + (b + c) := by
+  induction a with
+  | zero =>
+      have h1 : (zero + b) + c = b + c := by rfl
+      have h2 : zero + (b + c) =  b + c := by rfl
+      rw [h1, h2]
+  | succ a ih =>
+      have h1 : succ a + (b + c) = succ (a + (b + c)) := by rfl
+      have h2 : succ a + b + c = succ ((a + b) + c) := by rfl
+      rw [h2, ih, h1]
 
 end nat
