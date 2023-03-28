@@ -27,7 +27,7 @@ axiom zero_not_succ : ∀ n : nat, zero ≠ succ n
 theorem four_not_zero : four ≠ zero :=
   have h1 : succ three = four := rfl
   have h2 : zero ≠ succ three := zero_not_succ three
-  have h3 : zero ≠ four := Eq.symm h1 ▸ h2
+  have h3 : zero ≠ four := h1 ▸ h2
   show four ≠ zero from Ne.symm h3
 
 -- Axiom 2.4. Different natural numbers must have 
@@ -101,5 +101,21 @@ theorem add_assoc (a b c : nat) : (a + b) + c = a + (b + c) := by
       have h1 : succ a + (b + c) = succ (a + (b + c)) := by rfl
       have h2 : succ a + b + c = succ ((a + b) + c) := by rfl
       rw [h2, ih, h1]
+
+-- Proposition 2.2.6 (Cancellation law). Let a,b,c be natural 
+-- numbers such that a+b=a+c. Then we have b=c.
+theorem cancellation_law (a b c : nat) : (a + b) = (a + c) → b = c := by
+  intro h
+  induction a with
+  | zero =>
+    have h1 : b = zero + b := by rfl
+    have h2 : c = zero + c := by rfl
+    rw [h1, h2]
+    exact h
+  | succ a ih =>
+    have h1 : succ a + b = succ (a + b) := by rfl
+    have h2 : succ a + c = succ (a + c) := by rfl
+    rw [h1,h2] at h
+    
 
 end nat
