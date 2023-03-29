@@ -1,3 +1,5 @@
+import Mathlib.Tactic.Contrapose
+
 open Classical
 
 -- Section 2.1 The Peano axioms
@@ -116,6 +118,9 @@ theorem cancellation_law (a b c : nat) : (a + b) = (a + c) → b = c := by
     have h1 : succ a + b = succ (a + b) := by rfl
     have h2 : succ a + c = succ (a + c) := by rfl
     rw [h1,h2] at h
-    
+    apply ih
+    contrapose h
+    apply succ_inj
+    exact h
 
 end nat
