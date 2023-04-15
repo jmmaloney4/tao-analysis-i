@@ -26,24 +26,20 @@ def six : nat := succ five
 axiom zero_not_succ : ∀ n : nat, zero ≠ succ n
 
 -- Proposition 2.1.6. 4 is not equal to 0.
-theorem four_not_zero : four ≠ zero :=
-  have h1 : succ three = four := rfl
-  have h2 : zero ≠ succ three := zero_not_succ three
-  have h3 : zero ≠ four := h1 ▸ h2
-  show four ≠ zero from Ne.symm h3
+theorem four_not_zero : four ≠ zero := by simp [four]
+-- Wow
 
 -- Axiom 2.4. Different natural numbers must have 
 -- different successors; i.e., if n, m are natural 
 -- numbers and n ≠ m, then n++ ≠ m++. Equivalently, 
 -- if n++ = m++, then we must have n = m.
-axiom succ_inj : ∀ n : nat, ∀ m : nat, n ≠ m → succ n ≠ succ m
+-- Lean actually generates this for us.
+-- axiom succ_inj : ∀ n : nat, ∀ m : nat, n ≠ m → succ n ≠ succ m
 
 -- Proposition 2.1.8. 6 is not equal to 2.
-theorem six_not_two : six ≠ two :=
-    have h1 : four ≠ zero := four_not_zero
-    have h2 : succ four ≠ succ zero := succ_inj four zero h1
-    have h3 : succ (succ four) ≠ succ (succ zero) := succ_inj (succ four) (succ zero) h2 
-    show six ≠ two from h3
+theorem six_not_two : six ≠ two := by
+  simp [six, two, five, one]
+  exact four_not_zero
 
 -- Axiom 2.5 (Principle of mathematical induction). Let 
 -- P(n) be any property pertaining to a natural number n. 
@@ -119,8 +115,33 @@ theorem cancellation_law (a b c : nat) : (a + b) = (a + c) → b = c := by
     have h2 : succ a + c = succ (a + c) := by rfl
     rw [h1,h2] at h
     apply ih
-    contrapose h
-    apply succ_inj
+    apply succ.inj
     exact h
+
+def is_positive : nat → Bool 
+| zero => false
+| succ _ => true 
+
+-- Proposition 2.2.8. If a is positive and b is a natural number, then 
+-- a+b is positive (and hence b + a is also, by Proposition 2.2.4).
+theorem positive_add_stable (a b : nat) : is_positive a → is_positive (a + b) := by
+cases a with
+| zero => 
+  intro h
+  contradiction
+| succ a =>
+  intro _
+  calc
+    is_positive (succ a + b) = is_positive (succ (a + b)) := rfl
+    _ = true := by simp [is_positive]
+
+-- Corollary 2.2.9. If a and b are natural numbers such that a + b = 0, then a=0 and b=0.
+theorem only_zeros_sum_to_zero (a b : nat) : a + b = zero → And (a = zero) (b = zero) := by
+contrapose
+intros
+
+
+
+
 
 end nat
