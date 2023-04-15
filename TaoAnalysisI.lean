@@ -137,8 +137,13 @@ cases a with
 
 -- Corollary 2.2.9. If a and b are natural numbers such that a + b = 0, then a=0 and b=0.
 theorem only_zeros_sum_to_zero (a b : nat) : a + b = zero → And (a = zero) (b = zero) := by
-contrapose
-intros
+intros h0
+have h1 : a + b = zero + zero := calc
+  a + b = zero := h0
+  _ = zero + zero := rfl
+
+
+
 
 
 
