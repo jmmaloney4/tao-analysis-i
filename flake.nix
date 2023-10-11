@@ -22,6 +22,11 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lean4 = {
+      url = "github:leanprover/lean4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -33,6 +38,7 @@
     pre-commit-hooks,
     systems,
     treefmt,
+    lean4,
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({
       withSystem,
@@ -65,7 +71,6 @@
             config.treefmt.build.devShell
           ];
           buildInputs = with pkgs; [
-            elan
           ];
         };
 

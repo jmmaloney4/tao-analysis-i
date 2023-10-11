@@ -1,4 +1,5 @@
 import Mathlib.Tactic.Contrapose
+import Mathlib.Init.Logic
 
 open Classical
 
@@ -144,6 +145,8 @@ case zero =>
   exact ⟨rfl, h⟩
 case succ a' => contradiction  
 
-
+-- Lemma 2.2.10. Let a be a positive number. Then there exists exactly one natural number b such that b++ = a.
+theorem unique_previous_natural (a : nat) : (a ≠ zero) → ExistsUnique (b : nat) (succ b) = a := by
+sorry
 
 end nat
