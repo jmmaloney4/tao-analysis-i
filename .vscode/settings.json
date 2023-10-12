@@ -1,0 +1,4 @@
+{
+    "lean4.enableLake": false,
+    "lean4.toolchainPath": "lean-toolchain"
+}

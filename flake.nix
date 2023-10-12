@@ -62,7 +62,9 @@
         lib,
         ...
       }: {
-        packages = {};
+        packages = {
+          lean-toolchain = inputs'.lean4.packages.lean-dev;
+        };
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [
