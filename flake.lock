@@ -108,9 +108,7 @@
         "flake-utils": "flake-utils",
         "lean4-mode": "lean4-mode",
         "nix": "nix",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1695693562,
@@ -262,6 +260,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1697009197,
+        "narHash": "sha256-viVRhBTFT8fPJTb1N3brQIpFZnttmwo3JVKNuWRVc3s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "01441e14af5e29c9d27ace398e6dd0b293e25a54",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1696879762,
         "narHash": "sha256-Ud6bH4DMcYHUDKavNMxAhcIpDGgHMyL/yaDEAVSImQY=",
         "owner": "nixos",
@@ -306,7 +320,7 @@
         "flake-root": "flake-root",
         "lean4": "lean4",
         "mission-control": "mission-control",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "pre-commit-hooks": "pre-commit-hooks",
         "systems": "systems_2",
         "treefmt": "treefmt"

@@ -25,7 +25,7 @@
 
     lean4 = {
       url = "github:leanprover/lean4/v4.1.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
